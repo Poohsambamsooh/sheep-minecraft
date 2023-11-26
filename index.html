@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <style>
+  .background{
+  height:100vh;
+  width:100vw;
+  position:absolute;
+  left:0px;
+  top:0px;
+  }
+  .ground{
+  position:absolute;
+  height:50vh;
+  width:100vw;
+  left:0px;
+  bottom: 0vh;
+  }
+  .sheep{
+  height:10vh;
+  width:10vw;
+  position:absolute;
+  bottom:50vh;
+  right:50vw;
+  }
+    .sheepToTheLeft{
+    transform:scaleX(+1)
+    }
+    .sheepToTheRight{
+     transform:scaleX(-1)
+     }
+  #randomNumber{
+    font-size: 8em;
+    position: absolute;
+    top: 10vh;
+    left: 10vw;
+  }
+
+  </style>
+  <body>
+  <img class="background" src="background.webp"/>
+  <img class="ground" src="ground.webp"/>X
+  <img id="sheep10" onclick="walkSomewhere('right')"  class="sheep sheepToTheRight" src="sheepWalkL.webp"/>
+  <div id="randomNumber">22</div>
+  </body>
+  <script>
+  // window.addEventListener("DOMContentLoaded",initSheep)
+  const waitForABit = (delay) => new Promise ((resolve) => setTimeout (resolve,delay))
+
+  async function walkRight(){
+  var sheep10=document.getElementById("sheep10")
+
+  var sheepLocNow=50;
+  while (sheepLocNow >= 30 ){
+     sheepLocNow=sheepLocNow-1;
+     console.log (sheepLocNow);
+     await waitForABit(100);
+      sheep10.setAttribute("style","right: "+sheepLocNow+"vw;")
+
+  }
+}
+
+  var sheepLocNow=50;
+
+  async function walkLeft(){
+  var sheep10=document.getElementById("sheep10")
+
+
+  while (sheepLocNow <= 80 ){
+     sheepLocNow=sheepLocNow+1;
+     console.log (sheepLocNow);
+     await waitForABit(100);
+      sheep10.setAttribute("style","right: "+sheepLocNow+"vw;")
+  }
+  }
+
+  async function walkSomewhere(direction){
+  var sheep10=document.getElementById("sheep10")
+
+  var randomNumber = Math.floor(Math.random()*30);
+  var randomThing = document.getElementById("randomNumber");
+  randomThing.innerHTML=randomNumber;
+
+  if (randomNumber>15) direction="right"
+      else direction="left"
+
+  var sheepLocNow=50;
+   if (direction=="left") while (sheepLocNow <= 80 ){
+     sheep10.setAttribute("class","sheep sheepToTheLeft")
+     sheepLocNow=sheepLocNow+1;
+       await waitForABit(100)
+            console.log (sheepLocNow);
+      sheep10.setAttribute("style","right: "+sheepLocNow+"vw;")
+  }
+   if (direction=="right")   while (sheepLocNow >= 30 ){
+    sheep10.setAttribute("class","sheep sheepToTheRight")
+     sheepLocNow=sheepLocNow-1;
+       await waitForABit(100)
+            console.log (sheepLocNow);
+      sheep10.setAttribute("style","right: "+sheepLocNow+"vw;")
+
+  }
+
+  }
+
+  //walkSomewhere("left")
+if (sheepLocNow==30)walkSomewhere('left')
+     //walkSomewhere("right")
+     if (sheepLocNow==80)walkSomewhere('right')
+
+  </script>
+</html>
